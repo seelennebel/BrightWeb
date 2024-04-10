@@ -27,7 +27,6 @@ app.get("/api/amigo", (req, res) => {
     res.send("connected");
 });
 
-
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(distDirPath, 'index.html'));
 });
