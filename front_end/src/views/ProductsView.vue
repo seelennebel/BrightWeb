@@ -5,14 +5,11 @@
             <div>
                 <p>PRODUCTS</p>
             </div>
-            <input type = "text" name = "name" id = "search-bar-container">
+            <input type = "text" name = "name" id = "search-bar-container" v-model = "searchQuery" placeholder="enter product">
         </div>
         <div id = "main-container" class = "flex-row">
-
             <div id = "products-container" class = "flex-row">
-
-                <Product :products = "prods"/>
-
+                <Product :products = "prods" :query="searchQuery" />
             </div>
 
         </div>
@@ -27,6 +24,7 @@ import { onMounted } from 'vue';
 import { ref } from 'vue';
 
 const prods = ref([]);
+const searchQuery = ref("");
 
 onMounted(async () => {
     try {
@@ -53,6 +51,11 @@ p
     font-size: 3vw;
     margin-left: 0.1em;
     padding: 1vw;
+}
+
+input
+{
+    text-align: center;
 }
 
 input:focus

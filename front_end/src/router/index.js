@@ -3,6 +3,7 @@ import MainView from "@/views/MainView.vue";
 import AboutView from "@/views/AboutView.vue";
 import ProductsView from "@/views/ProductsView.vue"
 import AdminView from '@/views/AdminView.vue';
+import ProductInfoView from '@/views/ProductInfoView.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: "/admin",
       name: "admin",
       component: AdminView
+    },
+    {
+      path: "/product",
+      name: "product",
+      component: ProductInfoView
     }
   ]
 });
