@@ -15,9 +15,14 @@ const productSchema = mongoose.Schema({
         type: String,
         required: [true, "enter price"],
         unique: false
+    },
+    file: {
+        type: String,
+        required: [true, "enter file"],
+        unique: false
     }
 });
 
-const Product = mongoose.model("Products", productSchema);
+const Product = mongoose.model("products-database", productSchema);
 
 module.exports = Product;

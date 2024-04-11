@@ -7,24 +7,46 @@ import { RouterLink } from "vue-router";
 <template>
     <div id = nav-container class = "flex-row">
         <div id = "logo" class = "flex-element">
-            <RouterLink to = "/">BRIGHT WEB</RouterLink>
+            <RouterLink to = "/">
+                <p>BRIGHT WEB</p>
+            </RouterLink>
         </div>
         <div class = "flex-element">
-            <RouterLink to = "/about">ABOUT</RouterLink>
+            <RouterLink to = "/about">
+                <p>ABOUT</p>
+            </RouterLink>
         </div>
         <div class = "flex-element">
-            <RouterLink to = "/products">PRODUCTS</RouterLink>
+            <RouterLink to = "/products">
+                <p>PRODUCTS</p>
+            </RouterLink>
         </div>
         <div class = "flex-element">
-            SHOPPING CART
+            <RouterLink to = "cart">
+                <p>SHOPPING CART</p>
+            </RouterLink>
         </div>
         <div class = "flex-element">
-            ACCOUNT
+            <RouterLink to = "account">
+                <p>ACCOUNT</p>
+            </RouterLink>
         </div>
     </div>
 </template>
 
 <style scoped>
+p:hover
+{
+    color: black;
+    background-color: white;
+    margin: 0;
+    padding: 1em;
+}
+a
+{
+    text-decoration: none;
+    color: white;
+}
 
 .flex-row
 {
@@ -35,6 +57,8 @@ import { RouterLink } from "vue-router";
 .flex-element
 {
     font-size: 1.5vw;
+    display: block;
+    height: fit-content;
 }
 
 #logo
@@ -56,6 +80,7 @@ import { RouterLink } from "vue-router";
     border-right: 0;
     border-color: black;
     border-style: solid;
+    background-color: black;
 }
 
 </style>
