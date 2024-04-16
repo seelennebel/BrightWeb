@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const router = require("./src/paths/paths");
 const multer = require("multer");
 const Product = require("./src/models/productModel");
+const authRouter = require("./src/paths/authRoutes");
 
 const app = express();
 app.use(express.json());
@@ -12,9 +13,10 @@ app.use(express.json());
 
 app.use(express.static("/Users/seelennebel/Desktop/BrightWeb/front_end/dist"));
 app.use(router);
+app.use(authRouter);
 
 const port = 8000;
-const database = "mongodb+srv://seelennebel:seelennebel@brightweb.pynlr7h.mongodb.net/"
+const database = "mongodb+srv://seelennebel:seelennebel@brightweb.pynlr7h.mongodb.net/bright-database"
 mongoose.connect(database)
     .then (() => {
         app.listen(port, () => {

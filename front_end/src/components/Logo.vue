@@ -1,9 +1,7 @@
 <template>
         <div class = "flex-row">
             <div id = "container">
-                <h1>BR</h1>
-                <img src = "../assets/png/lamp.jpg">
-                <h1>GHT WEB</h1>
+                <h1>BRIGHT WEB</h1>
             </div>
         </div>
 </template>

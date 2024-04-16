@@ -14,6 +14,10 @@ import NavBar from "../components/NavBar.vue";
             BRIGHT WEB is a platform where popular fashion brands create mystery boxes with unknown products.
             Our users will be able to order a package and receive a mystery gift from one of their favourite brands.
         </p>
+        <p>
+            We are ready to provide our users with "the other tip of iceberg" experience without doing
+            illegal activities
+        </p>
     </div>
     
 </main>
@@ -21,6 +25,16 @@ import NavBar from "../components/NavBar.vue";
 </template>
 
 <style scoped>
+
+main
+{
+    background-image: url("../assets/images/iceberg.jpg");
+    height: 100vh;
+    width:100%;
+    background-repeat: no-repeat;
+   
+    background-size: cover;
+}
 
 #text
 {
