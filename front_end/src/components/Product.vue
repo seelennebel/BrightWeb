@@ -1,10 +1,12 @@
 <template>
     <div id = "container" v-for = "product in filteredProducts" :key = product._id>
+		<RouterLink :to = "'/product:' + product._id">
         <div id = "image">
             <img :src = "'http://localhost:8000/api/image/' + product.file">
         </div>
         <p class = "desc"> {{ product.brand }} </p>
         <p class = "desc"> {{ product.name }} </p>
+		</RouterLink>
     </div>
 </template>
 

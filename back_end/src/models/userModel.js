@@ -9,20 +9,20 @@ const valid = (input) => {
 };
 
 const User_Schema = new mongoose.Schema({
-  username: {
+  user_name: {
     type: String,
-    required: [true, "enter your username"],
     required: [true, "enter your username"],
     unique: true,
     validate: [valid, "username in not valid"]
   },
   user_password: {
     type: String,
-    required: [true, "please, enter your password"],
-    required: [true, "Please, enter your password"],
-    validate: [valid, "password is not valid"]
+    required: [true, "enter your password"],
+    validate: [valid, "password is not valid"] 
   }
 });
+
+
 
 User_Schema.pre("save", async function(next) {
   const salt = await bcrypt.genSalt();
@@ -30,10 +30,17 @@ User_Schema.pre("save", async function(next) {
   next();
 });
 
-User_Schema.post("save", (doc, next) => {
-  console.log(doc);
-  next();
-});
+User_Schema.statics.login = async function(user_name, userpassword) {
+  const user = await this.findOne(({ user_name }));
+  if(user) {
+    const auth = await bcrypt.compare(userpassword, user.user_password);
+    if(auth) {
+      return user;
+    }
+    throw Error("incorrect password");
+  }
+  throw Error("incorrect username");
+};
 
 const User = mongoose.model('users', User_Schema);
 

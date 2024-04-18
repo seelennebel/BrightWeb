@@ -1,8 +1,4 @@
-<script setup>
 
-import { RouterLink } from "vue-router";
-
-</script>
 
 <template>
     <div id = nav-container class = "flex-row">
@@ -27,14 +23,58 @@ import { RouterLink } from "vue-router";
             </RouterLink>
         </div>
         <div class = "flex-element">
-            <RouterLink to = "account">
-                <p>ACCOUNT</p>
+            <RouterLink to = "login">
+                <p>{{ account }}</p>
             </RouterLink>
         </div>
     </div>
 </template>
 
+<script setup>
+
+import { RouterLink, useRoute } from "vue-router";
+import { onMounted, ref } from "vue";
+
+const account = ref("LOGIN");
+
+
+let path = window.location.pathname;
+
+const handle_mount = async () => {
+    try {
+        const url = "http://localhost:8000/api/check_user";
+        let options = {
+            method: "GET",
+            headers: {
+                'Content-Type': 'text/html',
+            },
+            credentials: "include"
+        };
+        const user = await fetch(url, options);
+        const req = await user.json();
+        if(req.decodedToken) {
+            account.value = "LOGOUT";
+        }
+        else
+        {
+            account.value = "LOGIN";
+        }
+    }
+    catch(error) {
+        console.log(error);
+    };
+};
+
+onMounted(() => {
+    if(path === "/") {
+        handle_mount();
+    }
+});
+
+</script>
+
 <style scoped>
+
 p:hover
 {
     color: black;

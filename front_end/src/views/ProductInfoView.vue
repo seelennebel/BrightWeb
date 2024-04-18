@@ -3,7 +3,7 @@
         <NavBar />
         <div id = "main_container" class = "flex-row">
             <div id = "content-container" class = "flex-row">
-                <img src = "/Users/seelennebel/Desktop/BrightWeb/back_end/src/uploads/Patron_in_Ohmatdyt,_28_April_2022_(04).jpg">
+                <img src = "../../../back_end/src/uploads/unnamed.jpg">
                 <div id = "right" class = "flex-column">
                     <h1>Brand</h1>
                     <h2>Name</h2>
@@ -12,7 +12,7 @@
                         Nostrum voluptatum est dolor, cupiditate expedita odio. 
                         Labore earum rerum, debitis ipsam aperiam minima corrupti unde numquam temporibus provident. 
                         Aut, voluptate aperiam!</p>
-                    <button>BUY</button>
+                    <button>ADD TO SHOPPING CART</button>
                 </div>
             </div>
         </div>

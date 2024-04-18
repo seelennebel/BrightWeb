@@ -1,9 +1,4 @@
-<script setup>
 
-import NavBar from "../components/NavBar.vue";
-import Logo from "../components/Logo.vue";
-
-</script>
 
 <template>
 
@@ -23,6 +18,14 @@ import Logo from "../components/Logo.vue";
 </main>
 
 </template>
+
+<script setup>
+
+import NavBar from "../components/NavBar.vue";
+import Logo from "../components/Logo.vue";
+
+
+</script>
 
 <style scoped>
 

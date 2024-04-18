@@ -5,9 +5,11 @@ const router = require("./src/paths/paths");
 const multer = require("multer");
 const Product = require("./src/models/productModel");
 const authRouter = require("./src/paths/authRoutes");
+const cookie_parser = require("cookie-parser");
 
 const app = express();
 app.use(express.json());
+app.use(cookie_parser());
 
 //const distDirPath = path.join(__dirname, "../front-end/dist");
 
@@ -16,7 +18,7 @@ app.use(router);
 app.use(authRouter);
 
 const port = 8000;
-const database = "mongodb+srv://seelennebel:seelennebel@brightweb.pynlr7h.mongodb.net/bright-database"
+const database = "mongodb+srv://seelennebel:seelennebel@brightweb.sllhcs1.mongodb.net/WebDatabase"
 mongoose.connect(database)
     .then (() => {
         app.listen(port, () => {
@@ -39,12 +41,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 app.post("/api/upload", upload.single("file"), async (req, res) => {
-    const {name, brand, price } = req.body;
+    const {name, brand, price, description } = req.body;
     const file = req.file; 
     const orig = file.originalname;
     console.log(orig);
     try {
-        const product = await Product.create({ name, brand, price, file:orig });
+        const product = await Product.create({ name, brand, price, file:orig, description });
         res.send(product);
     }
     catch (error) {
