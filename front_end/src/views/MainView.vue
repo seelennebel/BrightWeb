@@ -1,5 +1,3 @@
-
-
 <template>
 
 <main>
@@ -23,7 +21,6 @@
 
 import NavBar from "../components/NavBar.vue";
 import Logo from "../components/Logo.vue";
-
 
 </script>
 

@@ -29,9 +29,11 @@
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
 import NavBar from "../components/NavBar.vue";
+import { useStore } from "vuex";
 
 const username_ref = ref("");
 const password_ref = ref("");
+const store = useStore();
 
 const handle_submit = async (event) => {
     try {
@@ -44,8 +46,10 @@ const handle_submit = async (event) => {
             body: JSON.stringify({ "user_name" : username_ref.value, "user_password" : password_ref.value })
         };
         const user = await fetch(url, options);
-        const res = await user.json();
-        console.log(res);
+        if(user.status === 200) {
+            store.commit("change", "LOGOUT");
+            window.location.replace("/");
+        }
     }
     catch(error) {
         console.log(error);
@@ -53,7 +57,6 @@ const handle_submit = async (event) => {
 };
 
 </script>
-
 
 <style scoped>
 
