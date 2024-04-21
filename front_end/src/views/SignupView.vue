@@ -25,6 +25,7 @@
 <script setup>
 import { ref } from "vue";
 import NavBar from "../components/NavBar.vue";
+import router from "../router"
 
 const username_ref = ref("");
 const password_ref = ref("");
@@ -41,6 +42,7 @@ const handle_submit = async (event) => {
         };
         const user = await fetch(url, options);
         const res = await user.json();
+        router.push("/");
         console.log(res);
     }
     catch(error) {

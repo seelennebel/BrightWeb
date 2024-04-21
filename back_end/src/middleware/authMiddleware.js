@@ -29,7 +29,7 @@ const check_user = (req, res, next) => {
                 next();
             } 
             else {
-                res.status(200).json({decodedToken});
+                res.status(200).json("success");
                 next();
             }
         });

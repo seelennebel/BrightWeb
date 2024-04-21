@@ -20,10 +20,13 @@
                 <p>SHOPPING CART</p>
             </RouterLink>
         </div>
-        <div class = "flex-element">
-        <RouterLink to = "/login">
-            <p>{{ account }}</p>
-        </RouterLink>
+        <div class = "flex-element" @click = "logout">
+            <RouterLink v-if=" $store.state.account === true" to = '/' @click = "logout">
+                <p>LOGOUT</p>
+            </RouterLink>
+            <RouterLink v-else to = "/login">
+                <p>LOGIN</p>
+            </RouterLink>
         </div>
     </div>
 </template>
@@ -31,66 +34,21 @@
 <script setup>
 import { useStore } from "vuex";
 import { RouterLink } from "vue-router";
-import { computed, ref } from "vue";
 
 const store = useStore();
-const account = computed(() => {
-    return store.state.account;
-});
 
-/*
-const props = defineProps({
-    acc: {
-        type: String
-    }
-});
+const logout = () => {
+    let url = 'http://localhost:8000/api/logout';
 
-/*
-const handle_mount = async () => {
-    if(account.value === "LOGIN") {
-        window.location.replace("/login");
-        try {
-            const url = "http://localhost:8000/api/check_user";
-            let options = {
-                method: "GET",
-                headers: {
-                    'Content-Type': 'text/html',
-                },
-                credentials: "include"
-            };
-            const user = await fetch(url, options);
-            const req = await user.json();
-            if(req.decodedToken) {
-                account.value = "LOGOUT";
-            }
-            else
-            {
-                account.value = "LOGIN";
-            }
-        }
-        catch(error) {
-            console.log(error);
-        };
-    }
-    else {
-        try {
-            const url = "http://localhost:8000/api/logout";
-            const options = {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            };
-            const logout = await fetch(url, options);
-            window.location.replace("/");
-            account.value = "LOGIN";
-        }
-        catch(error) {
-            console.log(error);
-        };
-    }
+    let options = {method: 'GET'};
+
+    fetch(url, options)
+        .then(res => res.json())
+        .then(json => console.log(json))
+        .catch(err => console.error('error:' + err));
+    
+    store.commit('change', false);
 };
-*/
 
 </script>
 

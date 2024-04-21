@@ -28,13 +28,14 @@
 <script setup>
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
-import NavBar from "../components/NavBar.vue";
 import { useStore } from "vuex";
+import NavBar from "../components/NavBar.vue";
+import router from "@/router";
+
+const store = useStore();
 
 const username_ref = ref("");
 const password_ref = ref("");
-const store = useStore();
-
 const handle_submit = async (event) => {
     try {
         let url = 'http://localhost:8000/api/login';
@@ -47,8 +48,8 @@ const handle_submit = async (event) => {
         };
         const user = await fetch(url, options);
         if(user.status === 200) {
-            store.commit("change", "LOGOUT");
-            window.location.replace("/");
+            store.commit("change", true);
+            router.push("/");
         }
     }
     catch(error) {
