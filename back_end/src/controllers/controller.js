@@ -22,7 +22,7 @@ module.exports.products_get = async (req, res) => {
 
 module.exports.product_get = async (req, res) => {
     try {
-        const product = await Product.find({name : req.params.name });
+        const product = await Product.find({_id : req.params["productID"]});
         res.status(200).json(product);
     }
     catch (error) {

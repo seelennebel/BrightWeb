@@ -7,6 +7,7 @@ const require_auth = (req, res, next) => {
             if(err) {
                 console.log(err);
                 res.redirect("/login");
+                res.end();
             }
             else {
                 console.log(decoded_token);
@@ -29,7 +30,6 @@ const check_user = (req, res, next) => {
                 next();
             } 
             else {
-                res.status(200).json("success");
                 next();
             }
         });

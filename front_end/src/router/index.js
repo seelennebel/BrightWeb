@@ -31,7 +31,7 @@ const router = createRouter({
       component: AdminView
     },
     {
-      path: "/product",
+      path: "/product/:productID",
       name: "product",
       component: ProductInfoView
     },

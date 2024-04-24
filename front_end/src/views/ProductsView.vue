@@ -51,6 +51,7 @@ p
     font-size: 3vw;
     margin-left: 0.1em;
     padding: 1vw;
+    
 }
 
 input
