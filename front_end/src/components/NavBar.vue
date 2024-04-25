@@ -12,12 +12,13 @@
         </div>
         <div class = "flex-element">
             <RouterLink to = "/products">
-                <p>PRODUCTS</p>
+                <p >PRODUCTS</p>
             </RouterLink>
         </div>
         <div class = "flex-element">
             <RouterLink to = "/cart">
-                <p>SHOPPING CART</p>
+                <p v-if = "count === 0">SHOPPING CART</p>
+                <p v-else>SHOPPING CART {{ count }}</p>
             </RouterLink>
         </div>
         <div class = "flex-element" @click = "logout">
@@ -34,8 +35,13 @@
 <script setup>
 import { useStore } from "vuex";
 import { RouterLink } from "vue-router";
+import { computed } from "vue";
 
 const store = useStore();
+
+const count = computed(() => {
+    return store.state.cart.length;
+});
 
 const logout = () => {
     let url = 'http://localhost:8000/api/logout';

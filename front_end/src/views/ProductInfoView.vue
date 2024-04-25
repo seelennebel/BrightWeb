@@ -3,7 +3,8 @@
         <NavBar />
         <div id = "main_container" class = "flex-row">
             <div id = "content-container" class = "flex-row">
-                <img :src = "'http://localhost:8000/api/image/' + props.product.file">
+                <div id = "loader-image" v-if = "props.product.file == undefined"></div>
+                <img v-else :src = "'http://localhost:8000/api/image/' + props.product.file">
                 <div id = "right" class = "flex-column">
                     <div id = "upper-container" class = "flex-row">
                         <h1> {{ props.product.brand }} </h1>
@@ -11,7 +12,7 @@
                     </div>
                     <div id = "cont" class = "flex-row">
                         <h2>{{ props.product.name }}</h2>
-                        <button>ADD TO SHOPPING CART</button>
+                        <button type = "button" @click = "handle_click">ADD TO SHOPPING CART</button>
                     </div>
                     <div id = "lower-container" class = "flex-row">
                         <h2>Description:</h2>
@@ -27,19 +28,16 @@
 <script setup>
 
 import NavBar from '@/components/NavBar.vue';
-import { onMounted, defineProps } from 'vue';
+import { onBeforeMount, defineProps } from 'vue';
 import { useRoute } from 'vue-router';
+import { useStore } from "vuex";
+import router from "@/router/";
 
-const props = defineProps({
-    product: {
-        type: Object,
-        default: ""
-    }
-})
+const store = useStore();
 
 const rt = useRoute();
-const productId = rt.params.productID
 
+const productId = rt.params.productID
 
 const fetchProduct = async () => {
     try {
@@ -55,16 +53,33 @@ const fetchProduct = async () => {
     }
 };
 
-onMounted(async () => {
+onBeforeMount(async () => {
     const product = await fetchProduct();
     props.product = product;
 });
 
+const props = defineProps({
+    product: {
+        type: Object,
+        default: ""
+    }
+})
 
+const handle_click = () => {
+    store.commit("add_product", props.product._id);
+    router.push("/");
+    console.log(store.state.cart);
+};
 
 </script>
 
 <style scoped>
+
+#loader-image
+{
+    height: 30vw;
+    width: 30vw;
+}
 
 #cont
 {
