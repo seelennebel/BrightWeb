@@ -12,4 +12,6 @@ router.get("/api/logout", authController.logout_get);
 
 router.get("/api/check_user", middleware.check_user);
 
+router.post("/api/find_user", middleware.find_user);
+
 module.exports = router;

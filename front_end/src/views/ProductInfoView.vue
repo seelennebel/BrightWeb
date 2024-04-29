@@ -66,7 +66,12 @@ const props = defineProps({
 })
 
 const handle_click = () => {
-    store.commit("add_product", props.product._id);
+    if(store.state.cart.find((element) => element.id === props.product._id)) {
+        store.commit('add_one_to_quantity', props.product._id)
+    }
+    else {
+        store.commit("add_product", { id: props.product._id, quantity: 1, price: props.product.price });
+    }
     router.push("/");
     console.log(store.state.cart);
 };

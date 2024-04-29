@@ -12,19 +12,43 @@
 				<h2>PRICE:</h2>
 				<h2> {{ product[0].price }} EUR</h2>
 			</div>
-			<label id = "quant-label" for = "quantity"> QUANTITY </label>
-			<input type = "number" name = "quantity" id = "quant">
+			<h2>{{store.state.cart.find(item => item.id === product[0]._id).quantity}}</h2>
+			<button @click = "plus(product[0]._id)" type = "button" for = "quantity">+</button>
+			<button @click = "minus(product[0]._id)" type = "button" for = "quantity">-</button>
 		</div>
     </div>
 </template>
 
 <script setup>
 
-import { defineProps } from 'vue';
+import { defineProps, ref } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
 
 const props = defineProps({
 	products: Array
 })
+
+const plus = (id) => {
+	store.commit("add_one_to_quantity", id);
+	let index = store.state.cart.findIndex(item => item.id === id);
+	const cost = store.state.cart[index].price
+
+	store.state.cart_price += cost;
+}
+
+const minus = (id) => {
+	let index = store.state.cart.findIndex(item => item.id === id);
+	const cost = store.state.cart[index].price
+	if(store.state.cart_price - cost < 0) {
+		window.alert("Cannot select less then zero products")
+	}
+	else {
+		store.commit("change_quantity_minus", id);
+		store.state.cart_price -= cost;
+	}
+}
 
 </script>
 
@@ -37,9 +61,9 @@ const props = defineProps({
 
 #quant
 {
-	font-size: 1.5vw;
-	width: 3vw;
-	height: 1.5vw;
+	font-size: 2vw;
+	width: 6vw;
+	height: 2vw;
 	padding: 0;
 }
 

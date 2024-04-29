@@ -8,16 +8,18 @@
                 <CartProduct :products = "prods"/>
             </div>
             <div id = "right">
-
+                <h1>TOTAL:</h1>
+                <h2>{{ store.state.cart_price }} EUR</h2>
+                <button @click = "handle_click" type = "button">PURCHASE</button>
             </div>
         </div>
     </main>
-    
 </template>
 
 <script setup>
 import NavBar from "@/components/NavBar.vue";
 import CartProduct from "@/components/CartProduct.vue";
+import router from "@/router";
 
 import { useStore } from "vuex";
 import { ref } from "vue";
@@ -28,8 +30,8 @@ const prods = ref([]);
 
 const fetch_products = async () => {
 	try {
-		let responses = await Promise.all(store.state.cart.map(async productID => {
-			const response = await fetch(`http://localhost:8000/api/product/${productID}`);
+		let responses = await Promise.all(store.state.cart.map(async product => {
+			const response = await fetch(`http://localhost:8000/api/product/${product.id}`);
 			return response.json()
 		}))
 		return responses;
@@ -39,7 +41,25 @@ const fetch_products = async () => {
 	}
 }
 
-fetch_products().then(res => prods.value = res);
+let sum = 0;
+
+fetch_products().then(res => prods.value = res)
+.then(result => {
+    for(const element of result) {
+        sum += element[0].price * store.state.cart.find(item => item.id === element[0]._id).quantity;
+    }
+    return sum;
+}).then(res => store.commit("change_price", res));
+
+const handle_click = () => {
+    if(store.state.account === false) {
+        window.alert("Please login to complete the checkout");
+        router.push("/login");
+    }
+    else {
+        router.push("/checkout")
+    }
+};
 
 </script>
 
@@ -52,8 +72,10 @@ fetch_products().then(res => prods.value = res);
 
 #right
 {
-    width: 40vw; 
-    border-right: 1px solid black;
+    width: 30vw; 
+    border-left: 1px solid black;
+    height: fit-content;
+    padding-left: 2vw;
 }
 
 #bar

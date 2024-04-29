@@ -11,8 +11,6 @@ const app = express();
 app.use(express.json());
 app.use(cookie_parser());
 
-//const distDirPath = path.join(__dirname, "../front-end/dist");
-
 app.use(express.static("/Users/seelennebel/Desktop/BrightWeb/front_end/dist"));
 app.use(router);
 app.use(authRouter);

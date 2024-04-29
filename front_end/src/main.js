@@ -6,7 +6,8 @@ import router from './router';
 const store = createStore({
     state: {
         account: false,
-        cart: []
+        cart: [],
+        cart_price: 0
     },
     mutations: {
         change(state, value) {
@@ -14,6 +15,20 @@ const store = createStore({
         },
         add_product(state, id) {
             state.cart.push(id);
+        },
+        change_price(state,value) {
+            state.cart_price = value;
+        },
+        change_price_minus(state, value) {
+            state.cart_price -= value;
+        },
+        add_one_to_quantity(state, id) {
+            let index = state.cart.findIndex(el => el.id === id);
+            state.cart[index].quantity += 1;
+        },
+        change_quantity_minus(state, id) {
+            let index = state.cart.findIndex(el => el.id === id);
+            state.cart[index].quantity -= 1;
         }
     }
 });
