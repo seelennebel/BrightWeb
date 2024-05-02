@@ -11,11 +11,11 @@ const app = express();
 app.use(express.json());
 app.use(cookie_parser());
 
-app.use(express.static("/Users/seelennebel/Desktop/BrightWeb/front_end/dist"));
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 app.use(router);
 app.use(authRouter);
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8080;
 const database = "mongodb+srv://seelennebel:seelennebel@brightweb.sllhcs1.mongodb.net/WebDatabase"
 mongoose.connect(database)
     .then (() => {
@@ -54,11 +54,11 @@ app.post("/api/upload", upload.single("file"), async (req, res) => {
 
 app.get("/api/image/:filename", (req, res) => {
     const { filename } = req.params;
-    res.sendFile("/Users/seelennebel/Desktop/BrightWeb/back_end/src/uploads/" + filename);
+    res.sendFile(path.join(__dirname, "/src/uploads/" + filename));
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join("/Users/seelennebel/Desktop/BrightWeb/front_end/dist", 'index.html'));
+    res.sendFile(path.join(__dirname, "../frontend/dist", 'index.html'));
 });
 
 
