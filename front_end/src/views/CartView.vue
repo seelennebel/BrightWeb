@@ -57,6 +57,7 @@ const handle_click = () => {
         router.push("/login");
     }
     else {
+        console.log(store.state.cart);
         router.push("/checkout")
     }
 };

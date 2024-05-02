@@ -19,6 +19,10 @@ const User_Schema = new mongoose.Schema({
     type: String,
     required: [true, "enter your password"],
     validate: [valid, "password is not valid"] 
+  },
+  orders: {
+    type: [Object],
+    required: false
   }
 });
 

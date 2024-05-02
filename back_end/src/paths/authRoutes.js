@@ -14,4 +14,6 @@ router.get("/api/check_user", middleware.check_user);
 
 router.post("/api/find_user", middleware.find_user);
 
+router.post("/api/modify_orders", middleware.modify_orders);
+
 module.exports = router;

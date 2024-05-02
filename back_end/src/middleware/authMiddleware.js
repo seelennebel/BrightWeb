@@ -21,7 +21,7 @@ const require_auth = (req, res, next) => {
     }
 };
 
-const check_user = (req, res, next) => {
+const check_user = async (req, res, next) => {
     const token = req.cookies.jwt;
     if(token) {
         jwt.verify(token, 'bright web', async (err, decodedToken) => {
@@ -31,6 +31,9 @@ const check_user = (req, res, next) => {
                 next();
             } 
             else {
+                const user = await User.find({_id : decodedToken.id});
+                res.status(200).json(user);
+                res.end();
                 next();
             }
         });
@@ -55,4 +58,31 @@ const find_user = async (req, res, next) => {
     }
 }
 
-module.exports = { require_auth, check_user, find_user };
+
+const modify_orders = async (req, res) => {
+    const token = req.cookies.jwt;
+    if(token) {
+        jwt.verify(token, 'bright web', async (err, decodedToken) => {
+            if(err) {
+                res.status(400);
+                res.end();
+            } 
+            else {
+                const { new_orders } = req.body;
+                const user = await User.updateOne(
+                    {_id : decodedToken.id},
+                    { $push : { orders: { $each: new_orders }}}
+                );
+                res.status(200).json(user);
+                res.end();
+            }
+        });
+    }
+    else {
+        res.status(400);
+        res.end()
+    }
+}
+
+
+module.exports = { require_auth, check_user, find_user, modify_orders };

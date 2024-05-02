@@ -21,9 +21,9 @@
                 <p v-else>SHOPPING CART {{ count }}</p>
             </RouterLink>
         </div>
-        <div class = "flex-element" @click = "logout">
-            <RouterLink v-if=" $store.state.account === true" to = '/' @click = "logout">
-                <p>LOGOUT</p>
+        <div class = "flex-element">
+            <RouterLink v-if=" $store.state.account === true" to = '/account'>
+                <p>ACCOUNT</p>
             </RouterLink>
             <RouterLink v-else to = "/login">
                 <p>LOGIN</p>

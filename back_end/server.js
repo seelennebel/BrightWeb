@@ -15,7 +15,7 @@ app.use(express.static("/Users/seelennebel/Desktop/BrightWeb/front_end/dist"));
 app.use(router);
 app.use(authRouter);
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 const database = "mongodb+srv://seelennebel:seelennebel@brightweb.sllhcs1.mongodb.net/WebDatabase"
 mongoose.connect(database)
     .then (() => {

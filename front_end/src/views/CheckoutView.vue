@@ -27,6 +27,22 @@ onMounted(() => {
     document.body.appendChild(script);
 });
 
+const update_orders = async () => {
+    try {
+        const url = "http://localhost:8000/api/modify_orders";
+        const options = {
+            method: "POST",
+            body: JSON.stringify({new_orders: store.state.cart}),
+            headers: {"Content-Type" : "application/json"}
+        };
+        fetch(url, options)
+        .then(res => console.log(res));
+    }
+    catch(errors) {
+        console.log(errors);
+    }
+};
+
 function setLoaded() {
     loaded.value = true;
     window.paypal
@@ -45,7 +61,11 @@ function setLoaded() {
                 });
             },
             onApprove: (data, actions) => {
-                router.push("/account");
+                update_orders();
+                store.state.cart.length = 0;
+                setTimeout(() => {
+                    router.push("/account");
+                },3000);
             }
         })
         .render(document.querySelector('#paypal-container'));
